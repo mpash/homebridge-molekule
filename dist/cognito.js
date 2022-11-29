@@ -1,8 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HttpAJAX = void 0;
 const amazon_cognito_identity_js_1 = require("amazon-cognito-identity-js");
-import('node-fetch');
+const node_fetch_1 = __importDefault(require("node-fetch"));
 let token = '';
 let refreshToken;
 let authError;
@@ -17,16 +20,16 @@ class HttpAJAX {
         this.pass = config.password;
         this.authenticationData = {
             Username: this.email,
-            Password: this.pass
+            Password: this.pass,
         };
         this.userPoolData = {
             UserPoolId: PoolId,
-            ClientId
+            ClientId,
         };
         this.userPool = new amazon_cognito_identity_js_1.CognitoUserPool(this.userPoolData);
         this.userData = {
             Username: this.email,
-            Pool: this.userPool
+            Pool: this.userPool,
         };
         this.authenticationDetails = new amazon_cognito_identity_js_1.AuthenticationDetails(this.authenticationData);
         this.cognitoUser = new amazon_cognito_identity_js_1.CognitoUser(this.userData);
@@ -60,21 +63,34 @@ class HttpAJAX {
             onFailure: (err) => {
                 this.log.error('API Authentication Failure, possibly a password/username error.');
                 reject(err);
-            }
+            },
         }));
     }
     async httpCall(method, extraUrl, send, retry) {
         let response;
         if (authError)
-            await this.refreshAuthToken().catch(e => { this.initiateAuth().catch(e => { this.log.error(e); return; }); this.log.debug(e); });
-        if ((token === '') || authError)
-            await this.initiateAuth().catch(err => { this.log.error(err); return; });
+            await this.refreshAuthToken().catch((e) => {
+                this.initiateAuth().catch((e) => {
+                    this.log.error(e);
+                    return;
+                });
+                this.log.debug(e);
+            });
+        if (token === '' || authError)
+            await this.initiateAuth().catch((err) => {
+                this.log.error(err);
+                return;
+            });
         if (method === 'GET') {
             const contents = {
                 method,
-                headers: { authorization: token, 'x-api-version': '1.0', 'content-type': 'application/json' }
+                headers: {
+                    authorization: token,
+                    'x-api-version': '1.0',
+                    'content-type': 'application/json',
+                },
             };
-            response = await fetch(url + extraUrl, contents);
+            response = await (0, node_fetch_1.default)(url + extraUrl, contents);
             this.log.debug('HTTP GET STATUS: ' + response.status);
             this.log.debug('HTTP GET CONTENTS: ' + JSON.stringify(response));
             if (response.status === 401 && retry > 0) {
@@ -88,9 +104,13 @@ class HttpAJAX {
             const contents = {
                 method,
                 body: send,
-                headers: { authorization: token, 'x-api-version': '1.0', 'content-type': 'application/json' }
+                headers: {
+                    authorization: token,
+                    'x-api-version': '1.0',
+                    'content-type': 'application/json',
+                },
             };
-            response = await fetch(url + extraUrl, contents);
+            response = await (0, node_fetch_1.default)(url + extraUrl, contents);
             this.log.debug('HTTP POST STATUS: ' + response.status + ' With contents: ' + send);
             if (response.status === 401 && retry > 0) {
                 authError = true;
