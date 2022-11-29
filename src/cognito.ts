@@ -5,7 +5,7 @@ import {
   CognitoUserPool,
 } from 'amazon-cognito-identity-js';
 import { Logger, PlatformConfig } from 'homebridge';
-import fetch from 'node-fetch';
+import fetch from 'node-fetch'
 
 let token = '';
 let refreshToken: CognitoRefreshToken;
@@ -15,7 +15,8 @@ const ClientId = '1ec4fa3oriciupg94ugoi84kkk';
 const PoolId = 'us-west-2_KqrEZKC6r';
 const url = 'https://api.molekule.com/users/me/devices/';
 
-type Response = any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Response = any;
 
 export class HttpAJAX {
   private readonly log: Logger;

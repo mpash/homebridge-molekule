@@ -2,7 +2,7 @@
   "private": false,
   "displayName": "Homebridge Molekule",
   "name": "@mpash/homebridge-molekule",
-  "version": "1.2.1",
+  "version": "1.2.2d",
   "description": "A Plugin for Molekule Air Purifiers for use with Homebridge.",
   "license": "Unlicense",
   "repository": {
@@ -29,11 +29,12 @@
   ],
   "dependencies": {
     "amazon-cognito-identity-js": "^5.2.2",
-    "node-fetch": "^3.3.0"
+    "node-fetch": "2"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.3",
     "@types/node": "^16.10.9",
+    "@types/node-fetch": "2",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
     "eslint": "^8.16.0",
