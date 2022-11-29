@@ -2,7 +2,7 @@
   "private": false,
   "displayName": "Homebridge Molekule",
   "name": "@mpash/homebridge-molekule",
-  "version": "1.2.2d",
+  "version": "1.2.3",
   "description": "A Plugin for Molekule Air Purifiers for use with Homebridge.",
   "license": "Unlicense",
   "repository": {
