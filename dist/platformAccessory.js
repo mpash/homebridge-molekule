@@ -144,7 +144,6 @@ class MolekulePlatformAccessory {
         if ((await this.updateStates()) === 1)
             throw new this.platform.api.hap.HapStatusError(-70402 /* this.platform.api.hap.HAPStatus.SERVICE_COMMUNICATION_FAILURE */);
         return this.state.Auto;
-        return 0;
     }
     /**
      * Handle "SET" requests from HomeKit
